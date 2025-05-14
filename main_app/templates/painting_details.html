@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- I got this method of coding from: Materialize, to have a nice view of the details -->
+<ul class="collection with-header"> 
+    <h2 class="collection-header">Painting Details</h2>
+    <li class="collection-item">Name: {{ painting.name }}</li>
+    <li class="collection-item">Colors Type: {{painting.colors_type}}</li>
+    <li class="collection-item">Style: {{painting.style}}</li>
+    <li class="collection-item">Year Created: {{painting.year_created}}</li>
+</ul>
+
+<a href="{% url 'painting_update' painting.pk%}">Edit</a>
+<a href="{% url 'painting_delete' painting.pk%}">Delete</a>
+
+<h1>Add Palette</h1>
+<form action="{% url 'add_palette' painting.id %}" method="post">
+    {% csrf_token %}
+    {{ palette_form.as_p }}
+    <input type="submit" value="Add Palette">
+</form>
+
+<h2>My Palettes</h2>
+
+<div class="col s6">
+    <table class="striped">
+        <thead>
+            <tr>
+                <th>Palette Name</th>
+                <th>Colors Used</th>
+                <th>Note</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for colorpalette in painting.colorpalette_set.all %}
+                <tr>
+                    <td>{{ colorpalette.name }}</td>
+                    <td>{{ colorpalette.colors }}</td>
+                    <td>{{ colorpalette.note }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="3">No palettes added 🎨</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<h3>My mood while painting '{{painting.name}}': </h3>
+<div>
+
+{% if painting.mood.count %}
+    {% for mood in painting.mood.all %}
+        <p>I was feeling {{mood.feeling}} </p>
+        <form method="post" action="{% url 'dessoc_mood' painting.id mood.id %}"> 
+            {% csrf_token %}
+            <button type="submit">Delete</button>
+    {% endfor %}
+{% else %}
+    <h4>Nothing added yet 🫥</h4>
+{% endif %}
+</div>
+
+{% if mood_painting_not_have.count %}
+    <h4>What were you feel?</h4>
+    {% for mood in mood_painting_not_have %}
+    <form method="post" action="{% url 'assoc_mood' painting.id mood.id %}"> 
+        {% csrf_token %}
+        <br>
+<button type="submit">Add "{{mood.feeling}}"</button>
+    </form>
+    {% endfor %}
+{% else %}
+    <h4>No available moods!</h4>
+{% endif %}
+
+<script>
+    const selectElement = document.querySelector('#id_colors_type')
+    M.FormSelect.init(selectElement)
+</script>
+
+{% endblock %}
+

@@ -1,0 +1,39 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Paintings Collector</title>
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- <link rel="stylesheet" type="text/css" href="{% static 'main_app/css/style.css' %}"> -->
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        
+</head>
+<body>
+    <nav
+        class="{% if user.is_authenticated %} logged-in {% else %} logged-out {% endif %}"
+    >
+        {% if user.is_authenticated %}
+            <a href="{% url 'paintings_list' %}">All Paintings</a>
+            <a href="{% url 'painting_create' %}">Add New Painting</a>
+            <form action="{% url 'logout' %}" method="post">
+                {% csrf_token %}
+                <button type="submit">Log Out</button>
+            </form>
+        {% else %}
+            <a href="{% url 'login' %}">Log In</a>
+            <a href="{% url 'signup' %}">Sign Up</a>
+        {% endif %}
+    </nav>
+    <main>
+        {% block content %}
+        <!-- This is where the individual pages will be rendered -->
+        {% endblock %}
+    </main>
+</body>
+</html>

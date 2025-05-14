@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <h1>All Paintings</h1>
+    <ul>
+        {% for painting in paintings %}
+        <li>
+            <a href="{% url 'painting_details' painting.pk %}"><h2>{{ painting.name }}</h2></a>
+        </li>
+        {% empty %}
+        <h2>There are no Paintings </h2> 
+        {% endfor %}
+    </ul>
+    <a href="{% url 'painting_create' %}">Add</a>
+
+{% endblock %}
