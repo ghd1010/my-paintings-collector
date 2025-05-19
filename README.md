@@ -1,6 +1,5 @@
  # My Paintings Collector 🎨
-One Week | Solo Project
-A personal collection management app that allows users to add, view, and organize their own paintings. Built with Django and styled using CSS
+#### One Week | Solo Project
 ## Project Description 
 My Paintings Collector is a simple web application designed for artists to manage their painting collections. Users can add, view, and organize their own paintings, along with noting the mood they were in while creating each piece.
 ## Tech Stack
