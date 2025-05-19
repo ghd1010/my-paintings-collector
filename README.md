@@ -7,6 +7,7 @@ My Paintings Collector is a simple web application designed for artists to manag
 * Backend: Django | Python
 * Frontend: HTML | CSS
 * Database: PostgreSQL
+* Tools: VS code
 
 ## Accomplishments
 * Built a full CRUD application solo in one week using Django
@@ -20,7 +21,7 @@ To set up the project locally, follow these steps:
 
  `git clone https://github.com/ghd1010/care-nest-frontend.git`
  
-### 2. cd to the folder
+### 2. Navigate the folder
 `cd my-paintings-collector`
 ### 3. Create and activate virtual environment
 `pipenv shell`
